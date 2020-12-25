@@ -1,0 +1,100 @@
+%задаем формат документа
+\documentclass[12pt,a4paper,preview]{article}
+\usepackage[english,russian]{babel}
+%вставка картинок
+\usepackage{graphicx}
+%какие типы файлов будут восприниматься как картинки
+\DeclareGraphicsExtensions{.pdf,.png,.jpg}
+\graphicspath{{images/}}
+
+\usepackage{geometry} % Меняем поля страницы
+\geometry{left=2cm}% левое поле
+\geometry{right=1.5cm}% правое поле
+\geometry{top=1cm}% верхнее поле
+\geometry{bottom=2cm}% нижнее поле
+
+\begin{document}
+%межстрочный интервал
+\linespread{1.5}
+
+\section*{\huge{Отчет по заданию Kaggle. \\Выполнила Абдраманова Яна, БПМ-17-2.}}
+
+\hfill \break
+
+\textbf{Набор данных:}\\
+Представленный в работе набор данных показывает сведения о клиентах банка и состоит из 10 000 клиентов, указывающих свой возраст, зарплату, семейное положение, лимит кредитной карты, категорию кредитной карты и т. д. \\
+
+\textbf{Цель работы:}\\
+Визуализировать наиболее релятивные переменные, влияющие на клиентов. \\
+\textbf{Основная часть:}\\
+Импортируем данные и проверяем корректность работы.\\
+Таблица содержит:\\
+ \begin{itemize}
+   \item 
+   CLIENTNUM - Номер клиента. Уникальный идентификатор клиента, владеющего счетом;
+   \item
+   Attrition\_Flag - Активность клиента - если счет закрыт, то 1 иначе 0;
+   \item 
+   Customer\_Age — возраcт клиента;
+   \item 
+   Dependent\_count - число иждивенцев;
+   \item
+   Education\_Level - образовательная квалификация владельца счета (пример: выпускник средней школы, колледжа и т. д.);
+   \item
+   Gender — пол клиента (M = мужчина, F = женщина);
+   \item
+   Marital\_Status - Женат, Холост, Разведен, Неизвестен;
+   \item
+   Income\_Category -категория годового дохода владельца счета;
+   \item
+   Card\_Category - тип карты (Синяя, серебряная, золотая, Платиновая);
+   \item
+   Months\_on\_book - период взаимоотношений с банком.
+ \end{itemize}
+подключаем библиотеки:\\
+\noindent\texttt{
+import numpy as np\\
+import pandas as pd\\
+import matplotlib.pyplot as plt\\
+import sys\\}
+
+Загружаем данные, преобразовываем, заменяем лексические значения цифрами и удаляем NaN.\\
+Функция correct\_indexing(dataset) корректирует индексы для дальнейшей работы.\\
+Функция catagory\_churn\_unchurn(type\_of\_card, data) производит набор данных на основе типа кредитной карты клиента.\\
+Функция plotter(column, Group) строит графики данного столбца 1 против столбца 2 и для 5 наборов данных.
+\begin{enumerate}
+\item полный набор
+\item данных синие держатели кредитных карт
+\item серебряные держатели кредитных карт
+\item золотые держатели кредитных карт
+\item платиновые держатели кредитных карт
+\end{enumerate}
+Графики находятся в этом конкретном порядке.
+Результат работы программы:
+\\
+
+\begin{figure}[h!] 
+\center{\includegraphics[scale=0.75]{Result2.png}}
+\caption{Результат работы функции plotter.}
+\end{figure}
+\begin{figure}
+\center{\includegraphics[scale=0.75]{Result3.png}}
+\caption{Contacts\_Counts\_12\_mon показывает слабую отрицательную корреляцию с Attirition\_flag клиента, но очень последовательна, и эта связь может быть использована для прогнозирования будущих вспенивающихся клиентов.}
+\end{figure}
+\begin{figure}
+\center{\includegraphics[scale=0.75]{Result5.png}}
+\caption{Результат работы функции plotter.}
+\end{figure}
+\begin{figure}
+\center{\includegraphics[scale=0.75]{Result6.png}}
+\caption{Total\_Revolving\_Bal показывает сильную положительную корреляцию с Attirition\_flag клиента и очень последовательна, и эта связь может быть использована для прогнозирования будущих вспенивающихся клиентов}
+\end{figure}
+\begin{figure}
+\center{\includegraphics[scale=0.75]{Result8.png}}
+\caption{Результат работы функции plotter.}
+\end{figure}
+\begin{figure}
+\center{\includegraphics[scale=0.75]{Result9.png}}
+\caption{Total\_Amt\_Chng\_Q4\_Q1 показывает сильную положительную корреляцию с Attirition\_flag клиента и очень последовательна, и эта связь может быть использована для прогнозирования будущих вспенивающихся клиентов}
+\end{figure}
+\end{document}
